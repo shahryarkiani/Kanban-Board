@@ -7,11 +7,12 @@ import {useState} from 'react'
 import {ticket} from './Card.jsx'
 import ModalBackdrop from './ModalBackdrop.jsx'
 import CreateModal from './CreateModal.jsx'
+import {DragDropContext} from '@hello-pangea/dnd'
 
 function App() {
 
     const [backlogCards, setBacklogCards] = useState([new ticket('Drag and Drop', 'Implement DnD Functionality', 'High', '3H', 'Backlog', crypto.randomUUID())]);
-    const [todoCards, setTodoCards] = useState([]);
+    const [todoCards, setTodoCards] = useState([new ticket('Drag and Drop', 'Implement DnD Functionality', 'High', '3H', 'To-Do', crypto.randomUUID()), new ticket('Drag and Drop', 'Implement DnD Functionality', 'High', '3H', 'To-Do', crypto.randomUUID()), new ticket('Drag and Drop', 'Implement DnD Functionality', 'High', '3H', 'To-Do', crypto.randomUUID()), new ticket('Drag and Drop', 'Implement DnD Functionality', 'High', '3H', 'To-Do', crypto.randomUUID()), new ticket('Drag and Drop', 'Implement DnD Functionality', 'High', '3H', 'To-Do', crypto.randomUUID()),new ticket('Drag and Drop', 'Implement DnD Functionality', 'High', '3H', 'To-Do', crypto.randomUUID()), new ticket('Drag and Drop', 'Implement DnD Functionality', 'High', '3H', 'To-Do', crypto.randomUUID()),new ticket('Drag and Drop', 'Implement DnD Functionality', 'High', '3H', 'To-Do', crypto.randomUUID()), new ticket('Drag and Drop', 'Implement DnD Functionality', 'High', '3H', 'To-Do', crypto.randomUUID()),new ticket('Drag and Drop', 'Implement DnD Functionality', 'High', '3H', 'To-Do', crypto.randomUUID()), new ticket('Drag and Drop', 'Implement DnD Functionality', 'High', '3H', 'To-Do', crypto.randomUUID())]);
     const [inProgressCards, setInProgressCards] = useState([]);
 
     function addCard(card) {
@@ -27,11 +28,17 @@ function App() {
     <>
         <Sidebar openCreateModal={() => setCreateModalStatus(true)} />
         <div className='flex ml-12 justify-evenly text-white items-start'>
-            <Cardholder title={'Backlog'} icon={<BsInboxes style={{color:'white', fontSize:'28'}} />} tickets={backlogCards} />
+            <DragDropContext onDragEnd={console.log('DRAG ENDED')}>
 
-            <Cardholder title={'To-Do'} icon={<FaArrowsToDot style={{color:'white', fontSize:'28'}}/>} tickets={todoCards} />
+                <Cardholder title={'Backlog'} icon={<BsInboxes style={{color:'white', fontSize:'28'}} />} tickets={backlogCards} />
 
-            <Cardholder title={'In Progress'} icon={<TbProgressBolt style={{color:'white', fontSize:'28'}}/>} tickets={inProgressCards} />
+                <Cardholder title={'To-Do'} icon={<FaArrowsToDot style={{color:'white', fontSize:'28'}}/>} tickets={todoCards} />
+
+                <Cardholder title={'In Progress'} icon={<TbProgressBolt style={{color:'white', fontSize:'28'}}/>} tickets={inProgressCards} />
+
+
+            </DragDropContext>
+
 
         </div>
 
