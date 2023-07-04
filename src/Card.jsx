@@ -19,10 +19,10 @@ export default function Card({title, desc, priority, estimate, id, index, delete
 
                     <div className='font-bold text-lg py-1 ml-1'>{title}</div>
 
-                    <div className={'ml-auto text-white p-2 py-1 rounded-md bg-' + priorityColor}>{priority}</div>
+                    <div className={'ml-auto mr-1 text-white p-2 py-1 rounded-md bg-' + priorityColor}>{priority}</div>
                 </div>
                 <div className='ml-1 mt-1'>{desc}</div>
-                <div onDoubleClick={deleteThis} className='ml-auto bg-red-700 p-1 rounded-md'>
+                <div onDoubleClick={deleteThis} className='ml-auto mr-1 bg-red-700 p-1 rounded-md'>
                     <IoTrashBinOutline style={{color:'white', fontSize:'28'}}/>
                 </div>
 

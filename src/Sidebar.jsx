@@ -3,6 +3,7 @@ import {BsInboxes} from "react-icons/bs";
 import {FaArrowsToDot} from "react-icons/fa6";
 import {TbProgressBolt} from "react-icons/tb";
 import {MdOutlineCreate} from 'react-icons/md'
+import {Link} from 'react-router-dom'
 
 export default function Sidebar({openCreateModal}) {
 
@@ -34,10 +35,15 @@ export default function Sidebar({openCreateModal}) {
 const SidebarItem = ({icon, onClick, link}) => (
         <>
             <button onClick={onClick}>
-                <a href={link} className='block flex h-12 w-12 items-center justify-center py-4 bg-slate-300 ml-2 mt-3 rounded-xl transition-all duration-200 hover:h-14 hover:w-14 hover:mt-2'>
-                    {icon}
 
-                </a>
+                <Link to={link}>
+                    <div className='block flex h-12 w-12 items-center justify-center py-4 bg-slate-300 ml-2 mt-3 rounded-xl transition-all duration-200 hover:h-14 hover:w-14 hover:mt-2'>
+                        {icon}
+
+                    </div>
+                </Link>
+
+
 
             </button>
         </>
