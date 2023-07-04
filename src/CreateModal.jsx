@@ -1,9 +1,26 @@
 import {AiOutlineCloseCircle} from 'react-icons/ai'
+import {ticket} from './Card.jsx'
 
-export default function CreateModal({submit, close}) {
+export default function CreateModal({addCard, close}) {
+
+    function createTicket(event) {
+        event.preventDefault()
+        const formData = new FormData(event.target)
+
+        for(let [key, value] of formData.entries()) {
+            console.log(key, value)
+        }
+
+        if(formData.get('priority') !== '') {
+            let newCard = new ticket(formData.get('title'), formData.get('desc'), formData.get('priority'), null, 'Backlog', crypto.randomUUID())
+            addCard(newCard)
+            close()
+        }
+
+    }
 
     return (
-        <form onClick={(e) => e.stopPropagation()} className='appearance-none flex flex-col p-4 bg-white border-y-8 border-teal-800 rounded-md shadow-md shadow-black'>
+        <form onSubmit={createTicket} onClick={(e) => e.stopPropagation()} className='appearance-none flex flex-col py-8 px-12 bg-white border-y-8 border-teal-800 rounded-md shadow-md shadow-black'>
 
             <div className='flex items-center'>
 
@@ -17,10 +34,10 @@ export default function CreateModal({submit, close}) {
 
 
             <label htmlFor='title' className='block mt-4 text-gray-500 font-bold'>Ticket Name</label>
-            <input id='title' className='shadow-sm shadow-black/75 appearance-none border-2 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-teal-700 focus:shadow-none transition-all duration-200' placeholder='Ticket Name'></input>
+            <input required='required' name='title' id='title' className='shadow-sm shadow-black/75 appearance-none border-2 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-teal-700 focus:shadow-none transition-all duration-200 invalid:border-red-700' placeholder='Ticket Name'></input>
 
             <label htmlFor='desc' className='block mt-4 text-gray-500 font-bold'>Short Description</label>
-            <input id='desc' className='shadow-sm shadow-black/75 appearance-none border-2 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-teal-700 focus:shadow-none transition-all duration-200' placeholder='Ticket Description'></input>
+            <input required='required' name='desc' id='desc' className='shadow-sm shadow-black/75 appearance-none border-2 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-teal-700 focus:shadow-none transition-all duration-200 invalid:border-red-700' placeholder='Ticket Description'></input>
 
 
 
@@ -47,25 +64,28 @@ export default function CreateModal({submit, close}) {
             </div>
 
 
+
+
+            {/*
             <h2 className='text-gray-500 font-bold mt-4'>Time Estimate</h2>
 
             <fieldset className=''>
                 <label className='appearance-none mr-2 text-gray-500 font-bold'>
                     Hrs.
                 </label>
-                <input placeholder='Est. Hours' id='hours' className='ml-2 w-24 shadow-sm shadow-black/75 appearance-none border-2 rounded py-2 px-2 text-gray-700 leading-tight focus:outline-none focus:border-teal-700 focus:shadow-none transition-all duration-200'/>
+                <input placeholder='Est. Hours' name='hours' id='hours' className='ml-2 w-24 shadow-sm shadow-black/75 appearance-none border-2 rounded py-2 px-2 text-gray-700 leading-tight focus:outline-none focus:border-teal-700 focus:shadow-none transition-all duration-200'/>
 
 
                 <label className='appearance-none ml-2 mr-2 text-gray-500 font-bold'>
                     Min.
                 </label>
 
-                <input id='minutes' placeholder='Est. Mins' className='ml-2 w-24 shadow-sm shadow-black/75 appearance-none border-2 rounded py-2 px-2 text-gray-700 leading-tight focus:outline-none focus:border-teal-700 focus:shadow-none transition-all duration-200'/>
+                <input id='minutes' name='minutes' placeholder='Est. Mins' className='ml-2 w-24 shadow-sm shadow-black/75 appearance-none border-2 rounded py-2 px-2 text-gray-700 leading-tight focus:outline-none focus:border-teal-700 focus:shadow-none transition-all duration-200'/>
 
             </fieldset>
+            */}
 
-
-            <button className='mx-auto px-6 py-3 rounded-md font-bold text-lime-600 hover:bg-lime-600 hover:text-white border border-lime-600 mt-4 bg-transparent'>
+            <button type='submit' className='mx-auto px-6 py-3 rounded-md font-bold text-lime-600 hover:bg-lime-600 hover:text-white border border-lime-600 mt-4 bg-transparent'>
 
                 Create
 
