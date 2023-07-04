@@ -11,7 +11,7 @@ export default function CreateModal({addCard, close}) {
             console.log(key, value)
         }
 
-        if(formData.get('priority') !== '') {
+        if(formData.get('priority')) {
             let newCard = new ticket(formData.get('title'), formData.get('desc'), formData.get('priority'), null, 'Backlog', crypto.randomUUID())
             addCard(newCard)
             close()
