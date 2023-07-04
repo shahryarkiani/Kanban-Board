@@ -11,7 +11,7 @@ import CreateModal from './CreateModal.jsx'
 import {DragDropContext} from '@hello-pangea/dnd'
 import useLocalStorage from './useLocalStorage.jsx'
 
-function App() {
+function App({page}) {
 
     const [backlogCards, setBacklogCards] = useLocalStorage('Backlog', [new ticket('Getting Started', 'Use the + button to the left to create your own ticket. Drag and Drop tickets to update their status or to sort them in the list', 'High', null, 'Backlog', crypto.randomUUID())])
     const [todoCards, setTodoCards] = useLocalStorage('To-Do', [])
@@ -26,20 +26,21 @@ function App() {
 
     const [createModalOpen, setCreateModalStatus] = useState(false)
 
+    let justify = (page === 'home') ? ' justify-normal' : ' justify-center'
 
   return (
     <>
         <Sidebar openCreateModal={() => setCreateModalStatus(true)} />
-        <div className='flex ml-16 h-screen text-white items-start overflow-x-auto'>
+        <div className={'flex ml-16 h-screen text-white items-start overflow-x-auto' + justify}>
             <DragDropContext onDragEnd={handleDropEnd}>
 
-                <Cardholder title={'Backlog'} icon={<BsInboxes style={{color:'white', fontSize:'28'}} />} tickets={backlogCards} />
+                { (page === 'home' || page === 'backlog') ? <Cardholder title={'Backlog'} icon={<BsInboxes style={{color:'white', fontSize:'28'}} />} tickets={backlogCards} /> : null}
 
-                <Cardholder title={'To-Do'} icon={<FaArrowsToDot style={{color:'white', fontSize:'28'}}/>} tickets={todoCards} />
+                { (page === 'home' || page === 'todo') ? <Cardholder title={'To-Do'} icon={<FaArrowsToDot style={{color:'white', fontSize:'28'}}/>} tickets={todoCards} /> : null}
 
-                <Cardholder title={'In Progress'} icon={<TbProgressBolt style={{color:'white', fontSize:'28'}}/>} tickets={inProgressCards} />
+                { (page === 'home' || page === 'inprogress') ? <Cardholder title={'In Progress'} icon={<TbProgressBolt style={{color:'white', fontSize:'28'}}/>} tickets={inProgressCards} /> : null}
 
-                <Cardholder title={'Done'} icon={<AiFillCheckCircle style={{color:'white', fontSize:'28'}}/>} tickets={doneCards} />
+                { (page === 'home' || page === 'done') ? <Cardholder title={'Done'} icon={<AiFillCheckCircle style={{color:'white', fontSize:'28'}}/>} tickets={doneCards} /> : null}
 
 
             </DragDropContext>

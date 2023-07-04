@@ -17,6 +17,8 @@ export default {
       'bg-lime-500',
       'bg-orange-500',
       'bg-yellow-400',
+      'justify-center',
+      'justify-normal'
   ]
 }
 
