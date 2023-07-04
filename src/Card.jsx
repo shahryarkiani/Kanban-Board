@@ -10,7 +10,7 @@ export default function Card({title, desc, priority, estimate, id, index}) {
     return (
         <Draggable draggableId={id} index={index}>
             {(provided, snapshot) => (
-            <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps} className={'flex flex-col mt-4 mb-4 py-4 px-1 text-black shadow-lg shadow-black/50 bg-slate-200 rounded-md mx-4 border-t-4 ' + borderColor}>
+            <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps} className={'flex flex-col mt-4 mb-4 py-4 px-1 text-black shadow-lg shadow-black/50 bg-slate-100 rounded-md mx-4 border-t-4 ' + borderColor}>
                 <div className='flex'>
 
                     <div className='font-bold text-lg py-1 ml-1'>{title}</div>

@@ -15,9 +15,9 @@ export default function Cardholder({icon, title, tickets}) {
 
 
 
-        <div className='w-[28vw] mx-4 shrink-0 bg-slate-200 my-8 rounded-md border-t-8 border-teal-800 border-solid shadow-md shadow-black/50'>
+        <div className='w-[28vw] mx-4 shrink-0 bg-slate-100 my-8 rounded-md border-t-8 border-teal-800 border-solid shadow-md shadow-black/50'>
             <div className='flex content-center border-b-2 border-black py-2 px-4'>
-                <div className='bg-white shadow-sm shadow-black p-4 text-lg text-black font-bold rounded-md'>
+                <div className='bg-slate-100 shadow-sm shadow-black p-4 text-lg text-black font-bold rounded-md'>
                     <h6>{title}</h6>
                 </div>
                 <div className='ml-auto shadow-md shadow-white bg-slate-500 p-4 rounded-md'>

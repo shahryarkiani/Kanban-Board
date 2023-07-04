@@ -13,7 +13,7 @@ import useLocalStorage from './useLocalStorage.jsx'
 
 function App() {
 
-    const [backlogCards, setBacklogCards] = useLocalStorage('Backlog', [])
+    const [backlogCards, setBacklogCards] = useLocalStorage('Backlog', [new ticket('Getting Started', 'Use the + button to the left to create your own ticket. Drag and Drop tickets to update their status or to sort them in the list', 'High', null, 'Backlog', crypto.randomUUID())])
     const [todoCards, setTodoCards] = useLocalStorage('To-Do', [])
     const [inProgressCards, setInProgressCards] = useLocalStorage('In Progress', [])
     const [doneCards, setDoneCards] = useLocalStorage('Done', [])
