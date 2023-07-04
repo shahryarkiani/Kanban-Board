@@ -1,7 +1,8 @@
 import {AiOutlineHome, AiOutlineInfoCircle, AiFillCheckCircle} from 'react-icons/ai'
-import {BsInboxes, BsPlusCircleDotted} from "react-icons/bs";
+import {BsInboxes} from "react-icons/bs";
 import {FaArrowsToDot} from "react-icons/fa6";
 import {TbProgressBolt} from "react-icons/tb";
+import {MdOutlineCreate} from 'react-icons/md'
 
 export default function Sidebar({openCreateModal}) {
 
@@ -10,7 +11,7 @@ export default function Sidebar({openCreateModal}) {
         <>
             <div className='group fixed flex flex-col top-0 left-0 w-16 h-screen justify-center bg-slate-100 shadow-white-900 mr-16 hover:w-48 transition-all shadow-md shadow-black'>
                     <SidebarItem link={'/'} icon={<AiOutlineHome style={{color:'black', fontSize:'36'}} />} />
-                    <SidebarItem onClick={openCreateModal} icon={<BsPlusCircleDotted style={{color:'black', fontSize:'28'}} />} />
+                    <SidebarItem onClick={openCreateModal} icon={<MdOutlineCreate style={{color:'black', fontSize:'28'}} />} />
                     <hr className='rounded-full mx-2 border border-2 mt-3 border-gray-400'/>
                     <SidebarItem link={'/backlog'} icon={<BsInboxes style={{color:'black', fontSize:'28'}} />} />
                     <SidebarItem link={'/todo'}  icon={<FaArrowsToDot style={{color:'black', fontSize:'28'}} />} />

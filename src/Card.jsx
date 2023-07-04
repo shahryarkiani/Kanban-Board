@@ -1,11 +1,15 @@
 import {Draggable} from '@hello-pangea/dnd'
+import {IoTrashBinOutline} from 'react-icons/io5'
 
-
-export default function Card({title, desc, priority, estimate, id, index}) {
+export default function Card({title, desc, priority, estimate, id, index, deleteFunction}) {
 
     let priorityColor = getPriorityColor(priority)
 
     let borderColor = ' border-' + priorityColor
+
+    function deleteThis() {
+        deleteFunction(index)
+    }
 
     return (
         <Draggable draggableId={id} index={index}>
@@ -18,6 +22,10 @@ export default function Card({title, desc, priority, estimate, id, index}) {
                     <div className={'ml-auto text-white p-2 py-1 rounded-md bg-' + priorityColor}>{priority}</div>
                 </div>
                 <div className='ml-1 mt-1'>{desc}</div>
+                <div onDoubleClick={deleteThis} className='ml-auto bg-red-700 p-1 rounded-md'>
+                    <IoTrashBinOutline style={{color:'white', fontSize:'28'}}/>
+                </div>
+
             </div>
         )}
         </Draggable>

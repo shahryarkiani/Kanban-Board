@@ -13,7 +13,7 @@ import useLocalStorage from './useLocalStorage.jsx'
 
 function App({page}) {
 
-    const [backlogCards, setBacklogCards] = useLocalStorage('Backlog', [new ticket('Getting Started', 'Use the + button to the left to create your own ticket. Drag and Drop tickets to update their status or to sort them in the list', 'High', null, 'Backlog', crypto.randomUUID())])
+    const [backlogCards, setBacklogCards] = useLocalStorage('Backlog', [new ticket('Getting Started', 'Use the + button to the left to create your own ticket. Drag and Drop tickets to update their status or to sort them in the list. Double click the red delete button to delete a ticket', 'High', null, 'Backlog', crypto.randomUUID())])
     const [todoCards, setTodoCards] = useLocalStorage('To-Do', [])
     const [inProgressCards, setInProgressCards] = useLocalStorage('In Progress', [])
     const [doneCards, setDoneCards] = useLocalStorage('Done', [])
@@ -22,6 +22,18 @@ function App({page}) {
         const newCards = backlogCards.slice()
         newCards.unshift(card)
         setBacklogCards(newCards)
+    }
+
+    function deleteCard(cards, setCards) {
+
+        return function(index) {
+
+            let newCards = cards.slice()
+            newCards.splice(index, 1)
+            setCards(newCards)
+
+        }
+
     }
 
     const [createModalOpen, setCreateModalStatus] = useState(false)
@@ -34,13 +46,13 @@ function App({page}) {
         <div className={'flex ml-16 h-screen text-white items-start overflow-x-auto' + justify}>
             <DragDropContext onDragEnd={handleDropEnd}>
 
-                { (page === 'home' || page === 'backlog') ? <Cardholder title={'Backlog'} icon={<BsInboxes style={{color:'white', fontSize:'28'}} />} tickets={backlogCards} /> : null}
+                { (page === 'home' || page === 'backlog') ? <Cardholder removeFunction={deleteCard(backlogCards, setBacklogCards)} title={'Backlog'} icon={<BsInboxes style={{color:'white', fontSize:'28'}} />} tickets={backlogCards} /> : null}
 
-                { (page === 'home' || page === 'todo') ? <Cardholder title={'To-Do'} icon={<FaArrowsToDot style={{color:'white', fontSize:'28'}}/>} tickets={todoCards} /> : null}
+                { (page === 'home' || page === 'todo') ? <Cardholder removeFunction={deleteCard(todoCards, setTodoCards)} title={'To-Do'} icon={<FaArrowsToDot style={{color:'white', fontSize:'28'}}/>} tickets={todoCards} /> : null}
 
-                { (page === 'home' || page === 'inprogress') ? <Cardholder title={'In Progress'} icon={<TbProgressBolt style={{color:'white', fontSize:'28'}}/>} tickets={inProgressCards} /> : null}
+                { (page === 'home' || page === 'inprogress') ? <Cardholder removeFunction={deleteCard(inProgressCards, setInProgressCards)} title={'In Progress'} icon={<TbProgressBolt style={{color:'white', fontSize:'28'}}/>} tickets={inProgressCards} /> : null}
 
-                { (page === 'home' || page === 'done') ? <Cardholder title={'Done'} icon={<AiFillCheckCircle style={{color:'white', fontSize:'28'}}/>} tickets={doneCards} /> : null}
+                { (page === 'home' || page === 'done') ? <Cardholder removeFunction={deleteCard(doneCards, setDoneCards)} title={'Done'} icon={<AiFillCheckCircle style={{color:'white', fontSize:'28'}}/>} tickets={doneCards} /> : null}
 
 
             </DragDropContext>

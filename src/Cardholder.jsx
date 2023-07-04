@@ -2,11 +2,11 @@ import Card, {Endcard} from "./Card.jsx";
 import {Droppable} from '@hello-pangea/dnd'
 
 
-export default function Cardholder({icon, title, tickets}) {
+export default function Cardholder({icon, title, tickets, removeFunction}) {
 
 
     const cards = tickets.map((ticket, index) => {
-        return <Card key={ticket.key} title={ticket.title} desc={ticket.desc} priority={ticket.priority} estimate={ticket.estimate} id={ticket.key} index={index}/>
+        return <Card key={ticket.key} title={ticket.title} desc={ticket.desc} priority={ticket.priority} estimate={ticket.estimate} id={ticket.key} index={index} deleteFunction={removeFunction}/>
     })
 
 
