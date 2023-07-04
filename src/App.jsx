@@ -9,13 +9,14 @@ import {ticket} from './Card.jsx'
 import ModalBackdrop from './ModalBackdrop.jsx'
 import CreateModal from './CreateModal.jsx'
 import {DragDropContext} from '@hello-pangea/dnd'
+import useLocalStorage from './useLocalStorage.jsx'
 
 function App() {
 
-    const [backlogCards, setBacklogCards] = useState([new ticket('Drag and Drop', 'Implement DnD Functionality', 'High', '3H', 'Backlog', crypto.randomUUID())])
-    const [todoCards, setTodoCards] = useState([new ticket('Test1', 'Implement DnD Functionality', 'High', '3H', 'To-Do', crypto.randomUUID()), new ticket('Drag and Drop', 'Implement DnD Functionality', 'High', '3H', 'To-Do', crypto.randomUUID()), new ticket('Test2', 'Implement DnD Functionality', 'High', '3H', 'To-Do', crypto.randomUUID()), new ticket('Test3', 'Implement DnD Functionality', 'High', '3H', 'To-Do', crypto.randomUUID()), new ticket('Drag and Drop', 'Implement DnD Functionality', 'High', '3H', 'To-Do', crypto.randomUUID()),new ticket('Drag and Drop', 'Implement DnD Functionality', 'High', '3H', 'To-Do', crypto.randomUUID()), new ticket('Drag and Drop', 'Implement DnD Functionality', 'High', '3H', 'To-Do', crypto.randomUUID()),new ticket('Drag and Drop', 'Implement DnD Functionality', 'High', '3H', 'To-Do', crypto.randomUUID()), new ticket('Drag and Drop', 'Implement DnD Functionality', 'High', '3H', 'To-Do', crypto.randomUUID()),new ticket('Drag and Drop', 'Implement DnD Functionality', 'High', '3H', 'To-Do', crypto.randomUUID()), new ticket('Drag and Drop', 'Implement DnD Functionality', 'High', '3H', 'To-Do', crypto.randomUUID())])
-    const [inProgressCards, setInProgressCards] = useState([])
-    const [doneCards, setDoneCards] = useState([])
+    const [backlogCards, setBacklogCards] = useLocalStorage('Backlog', [])
+    const [todoCards, setTodoCards] = useLocalStorage('To-Do', [])
+    const [inProgressCards, setInProgressCards] = useLocalStorage('In Progress', [])
+    const [doneCards, setDoneCards] = useLocalStorage('Done', [])
 
     function addCard(card) {
         const newCards = backlogCards.slice()
@@ -47,7 +48,7 @@ function App() {
         </div>
 
         {
-            createModalOpen ? <ModalBackdrop close={() => setCreateModalStatus(false)}> <CreateModal close={() => setCreateModalStatus(false)} /> </ModalBackdrop> : null
+            createModalOpen ? <ModalBackdrop close={() => setCreateModalStatus(false)}> <CreateModal addCard={addCard} close={() => setCreateModalStatus(false)} /> </ModalBackdrop> : null
         }
 
 
