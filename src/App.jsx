@@ -75,6 +75,9 @@ function App() {
 
         const source = result.source.droppableId
 
+        if(!result.destination)
+            return
+
         const originIndex = result.source.index
         let originCards = null
         let setOriginCards = null
