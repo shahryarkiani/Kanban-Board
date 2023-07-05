@@ -11,12 +11,14 @@ import CreateModal from './CreateModal.jsx'
 import {DragDropContext} from '@hello-pangea/dnd'
 import useLocalStorage from './useLocalStorage.jsx'
 
-function App({page}) {
+function App() {
 
-    const [backlogCards, setBacklogCards] = useLocalStorage('Backlog', [new ticket('Getting Started', 'Use the + button to the left to create your own ticket. Drag and Drop tickets to update their status or to sort them in the list. Double click the red delete button to delete a ticket', 'High', null, 'Backlog', crypto.randomUUID())])
+    const [backlogCards, setBacklogCards] = useLocalStorage('Backlog', [new ticket('Getting Started', 'Use the + button to the left to create your own ticket. Drag and Drop tickets to update their status or to sort them in the list. Double click the red delete button to delete a ticket. Click on the green buttons to the left to activate/deactivate columns', 'High', null, 'Backlog', crypto.randomUUID())])
     const [todoCards, setTodoCards] = useLocalStorage('To-Do', [])
     const [inProgressCards, setInProgressCards] = useLocalStorage('In Progress', [])
     const [doneCards, setDoneCards] = useLocalStorage('Done', [])
+
+    const [activeCols, setActiveCols] = useState([true, true, true, true]);
 
     function addCard(card) {
         const newCards = backlogCards.slice()
@@ -38,21 +40,20 @@ function App({page}) {
 
     const [createModalOpen, setCreateModalStatus] = useState(false)
 
-    let justify = (page === 'home') ? ' justify-normal' : ' justify-center'
 
   return (
     <>
-        <Sidebar openCreateModal={() => setCreateModalStatus(true)} />
-        <div className={'flex ml-16 h-screen text-white items-start overflow-x-auto' + justify}>
+        <Sidebar cols={activeCols} setCols={setActiveCols} openCreateModal={() => setCreateModalStatus(true)} />
+        <div className='flex ml-16 h-screen text-white justify-center items-start overflow-x-auto'>
             <DragDropContext onDragEnd={handleDropEnd}>
 
-                { (page === 'home' || page === 'backlog') ? <Cardholder removeFunction={deleteCard(backlogCards, setBacklogCards)} title={'Backlog'} icon={<BsInboxes style={{color:'white', fontSize:'28'}} />} tickets={backlogCards} /> : null}
+                { (activeCols[0]) ? <Cardholder removeFunction={deleteCard(backlogCards, setBacklogCards)} title={'Backlog'} icon={<BsInboxes style={{color:'white', fontSize:'28'}} />} tickets={backlogCards} /> : null}
 
-                { (page === 'home' || page === 'todo') ? <Cardholder removeFunction={deleteCard(todoCards, setTodoCards)} title={'To-Do'} icon={<FaArrowsToDot style={{color:'white', fontSize:'28'}}/>} tickets={todoCards} /> : null}
+                { (activeCols[1]) ? <Cardholder removeFunction={deleteCard(todoCards, setTodoCards)} title={'To-Do'} icon={<FaArrowsToDot style={{color:'white', fontSize:'28'}}/>} tickets={todoCards} /> : null}
 
-                { (page === 'home' || page === 'inprogress') ? <Cardholder removeFunction={deleteCard(inProgressCards, setInProgressCards)} title={'In Progress'} icon={<TbProgressBolt style={{color:'white', fontSize:'28'}}/>} tickets={inProgressCards} /> : null}
+                { (activeCols[2]) ? <Cardholder removeFunction={deleteCard(inProgressCards, setInProgressCards)} title={'In Progress'} icon={<TbProgressBolt style={{color:'white', fontSize:'28'}}/>} tickets={inProgressCards} /> : null}
 
-                { (page === 'home' || page === 'done') ? <Cardholder removeFunction={deleteCard(doneCards, setDoneCards)} title={'Done'} icon={<AiFillCheckCircle style={{color:'white', fontSize:'28'}}/>} tickets={doneCards} /> : null}
+                { (activeCols[3]) ? <Cardholder removeFunction={deleteCard(doneCards, setDoneCards)} title={'Done'} icon={<AiFillCheckCircle style={{color:'white', fontSize:'28'}}/>} tickets={doneCards} /> : null}
 
 
             </DragDropContext>
